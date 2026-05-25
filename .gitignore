@@ -1,0 +1,5 @@
+meshnet.exe
+*.exe
+configs/*.json
+!configs/.gitkeep
+.meshnet_history
