@@ -1,0 +1,2 @@
+[deploy]
+startCommand = "./out admin --host 0.0.0.0 --port 4000 --dashboard-host 0.0.0.0"

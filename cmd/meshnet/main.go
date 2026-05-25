@@ -43,8 +43,17 @@ func main() {
 		*configPath = filepath.Join("configs", name+".json")
 	}
 	if *dashboard == "" && name == "admin" {
-		*dashboard = "8000"
+		// On Railway, $PORT is the only port exposed to the public internet for HTTP.
+		// Use it if set, otherwise fall back to the default 8000 for local development.
+		if envPort := os.Getenv("PORT"); envPort != "" {
+			*dashboard = envPort
+		} else {
+			*dashboard = "8000"
+		}
 	}
+	// Also respect $PORT for the node TCP listener only if explicitly running as admin
+	// and no port flag was given. Railway reserves $PORT for HTTP, so we keep
+	// the mesh node on its fixed port (4000) and only use $PORT for the dashboard.
 	if name == "admin" {
 		*monitor = true
 	}
