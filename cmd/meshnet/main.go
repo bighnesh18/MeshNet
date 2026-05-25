@@ -45,7 +45,7 @@ func main() {
 	if *dashboard == "" && name == "admin" {
 		// On Railway, $PORT is the only port exposed to the public internet for HTTP.
 		// Use it if set, otherwise fall back to the default 8000 for local development.
-		if envPort := os.Getenv("PORT"); envPort != "" {
+		if envPort := os.Getenv("PORT"); envPort != "" && envPort != *port {
 			*dashboard = envPort
 		} else {
 			*dashboard = "8000"
